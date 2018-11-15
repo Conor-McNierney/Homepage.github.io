@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <!--
+    File: ~/assignment6.html
+    91.461 Assignment 6:Multiplacation table
+    Conor McNierney for GUI 1 assignment 6
+    used JS to create a simple 4 input boxes to create a multiplacation table based on the min max for x and y that the user inputs
+  -->
+  <!-- Configuration -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <!-- Fix this page by using old CSS -->
+  <link rel="stylesheet" href="css/assignment6.css">
+
+  <!-- Custom favicon -->
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <div id="NavBarHeader"></div>
+
+  <!-- The main container -->
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_gold">Assignment #6</span>
+        </h1>
+      </div>
+    </div>
+
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="highlight_centered_margins">
+          <form onsubmit="return false">
+            <label>Starting X: </label>
+            <input type="number" name="horz start" id="horiz_start" value="1"><br/>
+
+            <label>Ending X: </label>
+            <input type="number" name="horz end" id="horiz_end" value="5"><br/>
+
+            <label>Starting Y: </label>
+            <input type="number" name="vert start" id="vert_start" value="1"><br/>
+
+            <label>Ending Y: </label>
+            <input type="number" name="vert end" id="vert_end" value="5"><br/><br/>
+            <input type="submit" value="Submit " onclick="return table_calc()">
+          </form>
+        </div>
+
+        <br/>
+      </div>
+    </div>
+
+    <!-- The multiplication table will appear in this div -->
+    <div id="multiplication_table"></div>
+
+    <br><br>
+    <div id="TheFooter"></div>
+
+  </div>
+
+  <!-- jQuery  -->
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="js/table.js"></script>
+
+</body>
+</html>
