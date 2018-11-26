@@ -1,0 +1,129 @@
+
+/*  Conor McNierney
+  homework 7
+  using jquery to validate the input of user for the mult table
+  */
+* {
+  margin: 0;
+  padding: 0;
+}
+
+a.anchor {
+  display: block;
+  position: relative;
+  top: -70px;
+  visibility: hidden;
+}
+
+body {
+
+  background-color: #000000;
+  background-image: url('../img/space-wallpaper.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+
+  background-size: cover;
+  margin: 0px;
+  padding: 0px;
+  height: 100%;
+  width: 100%;
+  font-family: "Advent Pro";
+}
+
+body > .container {
+  padding: 65px 10px 0;
+}
+
+body > .row {
+  margin: 10px;
+}
+
+html {
+  min-height: 100%;
+  position: relative;
+  width: 100%;
+}
+.center_text_images {
+  margin: auto;
+  text-align: center;
+}
+input {
+  color: black;
+  font-family: "Advent Pro";
+  font-size: 70%;
+  font-weight: 900;
+  text-align: center;
+  width: 50px;
+}
+label {
+  display: inline-block;
+  float: left;
+  font-family: "Advent Pro";
+  font-size: 70%;
+  font-weight: 900;
+  margin-top: 6px;
+  text-align: right;
+  width: 250px;           
+}​
+
+input[type=submit] {
+  width: 150px;
+}
+div form input.submit_button {
+  margin-bottom: 10px;
+  width: 150px;
+}
+tbody > tr > td {
+  background-color: #004c00;               
+  border: 3px solid black;
+  color: white;
+  height: 25px;
+  font-family: "Advent Pro";
+  font-size: 100%;
+  font-weight: 900;
+  text-align: center;
+  width: 25px;
+}
+
+tbody > tr:first-child > td {
+  background-color: red;
+  color: white;
+}
+
+tbody > tr > td:first-child {
+  background-color: red;
+  color: white;
+}
+
+tbody > tr:first-child > td:first-child {
+  background-color: #ffffff;    
+  border-top: none;             
+  border-left: none;
+  color: black;
+  opacity: 0;
+}
+
+#warning_msg {
+  color: red;
+  font-family: "Advent Pro";
+  font-size: 70%;
+  font-style: italic;
+  font-weight: 900;
+}
+
+.warning_class {
+  padding: 5px;
+}
+
+.error {
+  color: red;
+  font-family: "Advent Pro";
+  font-size: 60%;
+  font-style: italic;
+  font-weight: 900;
+  text-align: center;
+}
+
+input.error {
+  border: 3px solid red;
+}
