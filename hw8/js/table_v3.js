@@ -1,4 +1,8 @@
-
+/*
+  Conor McNierney
+  For use in GUi 1 assignment 8
+  changing assignment 7 so that you can save the tables to view later
+*/
 var tabIndex = 1;
 function auto_submit() {
   if( $("form#mult_form").valid() == true ) {
