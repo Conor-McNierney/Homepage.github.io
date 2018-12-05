@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+ 
+   <link rel="stylesheet" type="text/css"
+   href="http://fonts.googleapis.com/css?family=Advent+Pro%7CBangers%7CSlackey%7CSigmar+One%7CRighteous%7CUbuntu">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/dark-hive/jquery-ui.min.css">
+
+  <link rel="stylesheet" href="css/index_assignment8.css">
+</head>
+<body>
+  <div id="NavBarHeader"></div>
+  <div class="container-fluid">
+  </div>
+    <div class="row">
+      <div class="col-md-12">
+        <h1 class="name">
+          <span class="highlight_fun">Assignment #8</span>
+        </h1>
+      </div>
+    <br>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-5">
+        <div class="highlight_centered_margins">
+          <form id="mult_form" name="mult_form" method="GET">
+            <div>
+              <label>Starting horizontal number: </label>
+              <input type="number" id="horiz_start" name="horiz_start" value="0" required>
+              <div id="slider_hor_start"></div>
+            </div>
+
+            <div>
+              <label>Ending horizontal number: </label>
+              <input type="number" id="horiz_end" name="horiz_end" value="0" required>
+              <div id="slider_hor_end"></div>
+            </div>
+
+            <div>
+              <label>Starting vertical number: </label>
+              <input type="number" id="vert_start" name="vert_start" value="0" required>
+              <div id="slider_vert_start"></div>
+            </div>
+
+            <div>
+              <label>Ending vertical number: </label>
+              <input type="number" id="vert_end" name="vert_end" value="0" required>
+              <div id="slider_vert_end"></div>
+            </div>
+            <input id="button_submit" class="submit_button" type="submit" onClick="save_tab();" value="Save Table">
+          </form>
+          <div id="warning_msg"></div>
+
+        </div>
+      </div>
+      <div class="col-md-5">
+        <div id="multiplication_table"></div>
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <br><br>
+
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-10">
+        <div class="highlight_centered">Tables will auto update when you enter a number or change the slider. You can save up to 24 tables </div>
+
+        <br><br>
+        <div id="tabs">
+          <ul>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-1"></div>
+    </div>
+
+    <br><br><br>
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div id="TheFooter" class="highlight_centered_small"></div>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script type='text/javascript' src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/jquery.validate.js"></script>
+  <script type='text/javascript' src="http://cdn.jsdelivr.net/jquery.validation/1.14.0/additional-methods.js"></script>
+  <script type='text/javascript' src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+  <script type='text/javascript' src="js/table_v3.js"></script>
+  <script>
+    $( document ).ready(function() {
+        $("#NavBarHeader").load("html/navbar.html");
+        $("#TheFooter").load("html/footer.html");
+
+        slider();
+        validate();
+        auto_submit();
+    });
+  </script>
+
+</body>
+</html>
