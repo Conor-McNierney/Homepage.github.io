@@ -145,7 +145,7 @@ function confirm_reset() {
         reset_game_board();
         return false;
       }
-      else {\
+      else {
         $("#messages").html("<br><div class='highlight_centered_success'> \
         RESET BOARD CANCELED.</div>");
         return false;

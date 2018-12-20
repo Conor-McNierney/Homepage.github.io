@@ -4,7 +4,7 @@ function load_droppable_targets() {
     appendTo: "body",
     drop: function(event, ui) {
       var draggableID = ui.draggable.attr("id");
-      var droppableID = $(this).attr("id");\
+      var droppableID = $(this).attr("id");
       $("#messages").html("<br><div class='highlight_centered_success'> \
       Swapping old tile for a new one.<br> Check the rack / board for your new tile!</div>");
       var new_letter = get_random_tile();
@@ -145,8 +145,6 @@ function load_droppable_targets() {
         // If so, just swap the two tiles. Make sure to update the game board array!
         // Get the originally dropped tile, so we can change it's positions in a second.
         var original_tile = $("#" + droppableID).find("img")[0].id;
-
-        // startPos has the original position of the current droppable.
         var posX = startPos.left;
         var posY = startPos.top;
 
