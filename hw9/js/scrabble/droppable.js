@@ -1,171 +1,69 @@
-/*
-    File: ~/js/scrabble/droppable.js
-    91.461 Assignment 9: Implementing a Bit of Scrabble with Drag-and-Drop
-    Jason Downing - student at UMass Lowell in 91.461 GUI Programming I
-    Contact: jdowning@cs.uml.edu or jason_downing@student.uml.edu
-    MIT Licensed - see http://opensource.org/licenses/MIT for details.
-    Anyone may freely use this code. Just don't sue me if it breaks stuff.
-    Created: Nov 24, 2015.
-    Last Updated: Dec 9, 4PM.
-
-    This JavaScript file is for the 9th assignment, "Scrabble".
-
-    This file contains the droppable code. This basically controls almost all of
-    the Scrabble game logic. It uses other functions, such as the score / util,
-    even draggable / buttons / variables files. Basically everything connects to
-    this file.
-
-    It is also VERY badly done. It needs to be separated out into more functions
-    that would make it much easier to read.
-*/
-
-
-/**
- *    This function will load up targets for the images to be dropped onto.
- *    I figure they will be transparent images that are overlayed on top of
- *    the game board.
- *
- *    Note: this is the main logic behind the game. Other functions help this one out,
- *    but all rules for where a tile can be dropped come from this function.
- *
- */
 function load_droppable_targets() {
-
-  /**
-   *    Logic for getting a new tile. User must drop the tile on the red "swap a tile" div.
-   *    This function will then generate a new letter, set the source on the tile to the new
-   *    letter and finally place the tile back to the original position before it was dropped.
-   *
-   */
   $("#get_new_tile").droppable( {
     accept: ".ui-draggable",
     appendTo: "body",
     drop: function(event, ui) {
       var draggableID = ui.draggable.attr("id");
-      var droppableID = $(this).attr("id");
-
-      // Let the user know what's going on.
+      var droppableID = $(this).attr("id");\
       $("#messages").html("<br><div class='highlight_centered_success'> \
       Swapping old tile for a new one.<br> Check the rack / board for your new tile!</div>");
-
-      // Generate a new tile (using get_random_tile() ) and remove the old tile.
-      // Also add it back into the pieces array so it's a straight swap. (no loss of ties)
-
-      // Get new letter. Also create a new image source that will be applied later.
       var new_letter = get_random_tile();
-
-      // Put the old letter back.
       var old_letter = find_letter(draggableID);
-
-      // Debugging
       console.log("Entering $(\"#get_new_tile\").droppable()");
       console.log("draggableID = " + draggableID);
       console.log("Old letter = " + old_letter + " New letter = " + new_letter);
-
-      // Go through the pieces array to find the letter we want to put back.
-      // Basically put it back in the "bag" of letters
       for(var i = 0; i < 26; i++) {
-        // If we found the letter we are trying to swap
         if(pieces[i].letter == old_letter) {
-          pieces[i].remaining++;  // Then increment by one so it's back in the bag.
+          pieces[i].remaining++;
         }
       }
-
-      // Now we can change the letter of the tile to the new letter.
       for(var i = 0; i < 7; i++) {
-        if(game_tiles[i].id == draggableID) {       // Find the tile in the game tile array.
-          game_tiles[i].letter = new_letter;        // Assign the new letter to the tile.
+        if(game_tiles[i].id == draggableID) {
+          game_tiles[i].letter = new_letter;
         }
       }
-
-      // Update the tile piece with the new image.
-      // The idea came from this post on Stackoverflow:
-      // https://stackoverflow.com/questions/554273/changing-the-image-source-using-jquery
-      // I had to modify this to work on different IDs, as simply "draggableID" did nothing.
       $("#" + draggableID).attr("src", "img/scrabble/Scrabble_Tile_" + new_letter + ".jpg");
-
-      // Place the tile back where it came from, either the rack or the game board.
       var posX = startPos.left;
       var posY = startPos.top;
-
-      // Move the draggable image so it doesn't fly around randomly like to the bottom of the screen or whatever.
       ui.draggable.css("left", posX);
       ui.draggable.css("top", posY);
       ui.draggable.css("position", "absolute");
-
-      // Update the letter's remaining table
       update_remaining_table();
-
-      // Update the word as well, in case the user changed the word.
       find_word();
     }
 
   });
-
-
-  /**
-   *      Rack logic. Positions the rack on page load.
-   *      Recalling the tiles is handled by the reset_tiles function.
-   *      Positioning is done using the ui.helper.position method which the jQuery UI provides.
-   *
-   */
   $("#the_rack").droppable( {
     accept: ".ui-draggable",
     appendTo: "body",
     drop: function(event, ui) {
       var draggableID = ui.draggable.attr("id");
       var droppableID = $(this).attr("id");
-
-      // Get board array length. This will be useful for our checks next.
       var gameboard_length = game_board.length;
-
-      // Need to check for complete words, if there's any then change some logic.
       var number_of_words = complete_words.length;
-
-      // See if this element is in the array and at the beginning or end.
       for(var i = 0; i < gameboard_length; i++) {
         if (game_board[i].tile == draggableID) {
-
-          // Make the spot droppable again.
           var spot_id = "#" + game_board[i].id;
           $(spot_id).droppable("enable");
-
-          // We found it! Remove it from the game board array.
-          // URL for this help: https://stackoverflow.com/questions/5767325/remove-a-particular-element-from-an-array-in-javascript
           game_board.splice(i, 1);
 
-          find_word();            // Update the word & score.
-
-          // This trick comes from Stackoverflow.
-          // URL: https://stackoverflow.com/questions/849030/how-do-i-get-the-coordinate-position-after-using-jquery-drag-and-drop
+          find_word();
           var currentPos = ui.helper.position();
           var posX = parseInt(currentPos.left);
           var posY = parseInt(currentPos.top);
-
-          // Move the draggable image so it doesn't fly around randomly like to the bottom of the screen or whatever.
           ui.draggable.css("left", posX);
           ui.draggable.css("top", posY);
           ui.draggable.css("position", "absolute");
-
-          // Move the tile over to the rack. Prevents weird bugs where the table changes sizes and thinks there's two tiles in one spot.
           $('#rack').append($(ui.draggable));
-
-          // If there's any completed words, and we just removed the last currently played word,
-          // we need to remove any disabled tiles from the word array.
           if(number_of_words > 0) {
-
-            // See if its time to remove these letters.
-            if(gameboard_length - 1 <= used_letters) {        // Yep, the length is at or below the user_letters
-              // Remove disabled tiles.
+            if(gameboard_length - 1 <= used_letters) {
               game_board.splice(0, gameboard_length);
-
-              // Reset the used_letters counter.
               used_letters = 0;
             }
           }
 
-          find_word();              // Update word & score.
-          return;                   // Quit now.
+          find_word();
+          return;
         }
       }
     }
